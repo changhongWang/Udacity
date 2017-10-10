@@ -6,33 +6,25 @@
 </head>
 <body>
 <script>
-    function extend(obj, methods) {
-        for(var method in methods){
-            if(methods.hasOwnProperty(method)){
-                obj[method] = methods[method];
-            }
-        }
-    }
+    /**
+     * 原型的原理：当对一个对象进行属性字段查找时，可以到另一个对象(该对象的原型对象)中继续查找
+     *
+     * 原型类：使用原型对象来储存所有的共用方法，并将实例委托到这个共享原型对象
+     */
+
     var Car = function (loc) {
-        if(loc === undefined || loc===null || loc === ''){
-            loc = 0;
-        }
-        var obj = {loc: loc};
-        extend(obj,Car.methods);
+        var obj = Object.create(Car.methods); // 当在实例中查找失败时，会在Car.methods中继续查找
+//        extend(obj,Car.methods);  不需要了
+//        使用Object.create,需要自行设置loc属性
+        obj.loc = loc;
         return obj;
-    };
+    }
+
     Car.methods = {
-        move:function () {
+        move: function () {
             this.loc++;
-        },
-        tellLoc: function () {
-            console.log("我的位置是:"+this.loc)
         }
     };
-    var a = new Car();
-    a.tellLoc();
-    a.move();
-    a.tellLoc();
 </script>
 </body>
 </html>
