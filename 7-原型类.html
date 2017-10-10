@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型类</title>
+</head>
+<body>
+<script>
+    function extend(obj, methods) {
+        for(var method in methods){
+            if(methods.hasOwnProperty(method)){
+                obj[method] = methods[method];
+            }
+        }
+    }
+    var Car = function (loc) {
+        if(loc === undefined || loc===null || loc === ''){
+            loc = 0;
+        }
+        var obj = {loc: loc};
+        extend(obj,Car.methods);
+        return obj;
+    };
+    Car.methods = {
+        move:function () {
+            this.loc++;
+        },
+        tellLoc: function () {
+            console.log("我的位置是:"+this.loc)
+        }
+    };
+    var a = new Car();
+    a.tellLoc();
+    a.move();
+    a.tellLoc();
+</script>
+</body>
+</html>
