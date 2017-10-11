@@ -13,18 +13,37 @@
      */
 
     var Car = function (loc) {
-        var obj = Object.create(Car.methods); // 当在实例中查找失败时，会在Car.methods中继续查找
+        var obj = Object.create(Car.prototype); // 当在实例中查找失败时，会在Car.methods中继续查找
 //        extend(obj,Car.methods);  不需要了
 //        使用Object.create,需要自行设置loc属性
         obj.loc = loc;
         return obj;
-    }
+    };
 
-    Car.methods = {
+/*    Car.methods = {
         move: function () {
             this.loc++;
         }
+    };*/
+    Car.prototype.move = function () {
+        this.loc++;
     };
+    Car.prototype.tellLocation = function () {
+        console.log("我的位置在："+this.loc);
+    };
+    var amy = new Car(1);
+    amy.tellLocation();
+    amy.move();
+    amy.tellLocation();
+
+    console.log(Car.prototype); // f{var obj}  存储了Car的方法
+    console.log(Car.prototype.constructor); // Car
+    console.log(Car.constructor);// Car.prototype
+
+    console.log(amy instanceof Car);
+    console.log(amy.__proto__)
+
+    // instanceof关键字用于检查 右侧的对象的.prototype对象 是否处在左侧运算对象的原型链中
 </script>
 </body>
 </html>

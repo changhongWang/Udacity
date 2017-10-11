@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪类模式</title>
+</head>
+<body>
+<h1>pseudo-classical 伪类模式</h1>
+
+<script>
+    /**
+     * 伪类模式：仿照其他语言中的类系统，试图添加一些语法上的便利
+     */
+
+    // 构造伪类时所需要的代码
+    var Car = function (loc) {
+        // this = Object.create(Car.prototype);   (new关键字做的事，创建一个新对象，委托给Car.prototype，并且赋值给this)
+        this.loc = loc;
+        // return this; (new关键字做的事，返回该对象)
+    };
+    Car.prototype.move = function () {
+        this.loc++;
+    };
+    Car.prototype.tellMe = function () {
+        console.log("I am in: "+ this.loc);
+    };
+
+    var amy = new Car(0);
+    amy.move();
+    amy.tellMe();
+
+    // 伪类模式与之前的原型类并无太大区别，因伪类只是在原型模式的基础上为了写代码方便加了一层语法糖
+    // 两种模式的主要区别是 "JavaScript引擎实现性能优化的数量" 。而这些优化，是"伪类模式"所独有的。
+
+
+</script>
+</body>
+</html>
