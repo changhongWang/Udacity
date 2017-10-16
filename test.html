@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .out-window{
+            position: absolute;
+            left: 35%;
+            border:1px solid #f00;
+            display: none;
+        }
+    </style>
+    <script src="lib/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<button onclick="buttonClick()">按钮123测试</button>
+<div class="out-window">
+    <form class="testForm">
+        <table class="test-table">
+            <tr>
+                <th>投资方式：</th>
+                <td>
+                    <select name="investWay" id="investWay">
+                        <option>请选择</option>
+                        <option value="1">直接</option>
+                        <option value="0">间接</option>
+                    </select>
+                </td>
+                <th class="detail">具体方式：</th>
+                <td class="detail"><input type="text" placeholder="请输入具体方式"></td>
+            </tr>
+        </table>
+    </form>
+    <button onclick="closeWindow()">关闭</button>
+</div>
+<script>
+    function buttonClick() {
+        $('.out-window').show()
+        $('.detail').hide()
+    }
+    function closeWindow() {
+        $('.out-window').hide()
+    }
+    $('#investWay').change(function(){
+        if($(this).val() == 0){
+            $('.detail').show();
+        }else{
+            $('.detail').hide();
+        }
+    })
+</script>
+</body>
+</html>
