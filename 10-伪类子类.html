@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪类子类</title>
+</head>
+<body>
+<script>
+    var Car = function(loc){
+        this.loc = loc;
+        this.name = 'changhong';
+    };
+    Car.prototype.move = function(){
+        this.loc++;
+    };
+    Car.prototype.tellLocation = function () {
+        console.log("location:"+ this.loc);
+    }
+
+    var Van = function(loc){
+        //this.__proto__ = Car.prototype;
+        new Car(loc);
+        //this.loc = obj.loc;
+        console.log(this);
+//        console.log(Object.create(Van.prototype))
+//        this.grab = function(){
+//            console.log("grab");
+//        }
+    };
+    //Van.prototype = Car.prototype;
+
+    var zed = new Car(3);
+    zed.move();
+
+    var amy = new Van(9);
+    //amy.move();
+    //amy.tellLocation();
+
+</script>
+</body>
+</html>

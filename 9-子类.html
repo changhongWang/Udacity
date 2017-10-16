@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超类与子类</title>
+</head>
+<body>
+
+<script>
+    /**
+     * Car类中包含所有通用的方法，但针对各种不同的汽车，可以通过在Car类的基础上添加自己独有的属性和方法(子类)
+     * 与此同时，Car类及其子类都能够返回对象
+     * @param loc
+     * @returns {{loc: *, move: move, tellPlace: tellPlace}}
+     * @constructor
+     */
+    var Car = function (loc) {
+        return {
+            "loc": loc,
+            move: function (loc) {
+                this.loc = loc;
+            },
+            tellPlace: function () {
+                console.log("I am in "+ this.loc +" now!");
+            }
+        };
+    };
+    var Van = function (loc) {
+        var obj = Car(loc);
+        obj.grab = function () {
+            console.log("grab");
+        };
+        return obj;
+    };
+    var Cop = function (loc) {
+        var obj = Car(loc);
+        obj.call = function () {
+            console.log("COP call!");
+        };
+        return obj;
+    };
+
+    var cop1 = new Cop(1);
+    cop1.tellPlace();
+    cop1.move(5);
+    cop1.tellPlace();
+    cop1.call();
+
+</script>
+</body>
+</html>
