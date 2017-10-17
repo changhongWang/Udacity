@@ -15,7 +15,7 @@
     };
     Car.prototype.tellLocation = function () {
         console.log("location:"+ this.loc);
-    }
+    };
 
     var Van = function(loc){
         //this.__proto__ = Car.prototype;
@@ -35,6 +35,8 @@
     var amy = new Van(9);
     //amy.move();
     //amy.tellLocation();
+
+    // .call方法允许我们在调用函数时指定一个特定的运行环境
 
 </script>
 </body>

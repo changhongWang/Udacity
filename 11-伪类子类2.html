@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪类子类2</title>
+</head>
+<body>
+<script>
+    var Car = function (loc) {
+        this.loc = loc;
+    };
+    Car.prototype.move = function () {
+        this.loc++;
+        console.log("我现在在："+this.loc+"位置");
+    };
+
+    var Van = function (loc) {
+        Car.call(this, loc);
+//        Van.prototype = Object.create(Car.prototype);
+        console.log(Van.prototype)
+    };
+    var amt = new Van(5);
+</script>
+</body>
+</html>
