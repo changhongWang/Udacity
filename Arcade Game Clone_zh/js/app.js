@@ -2,8 +2,9 @@
 var Enemy = function() {
     // 要应用到每个敌人的实例的变量写在这里
     // 已经提供了一个来帮助你实现更多
+    var arr_location_y = [60,145,225];
     this.x = 0;
-    this.y = -15;
+    this.y = arr_location_y[Math.floor(Math.random()*3)];
 
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
@@ -14,6 +15,7 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
+    this.x += 100*dt;
 };
 
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
@@ -24,8 +26,8 @@ Enemy.prototype.render = function() {
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
 var Player = function () {
-    this.x = 0;
-    this.y = 155;
+    this.x = 200;
+    this.y = 400;
     this.sprite = 'images/char-boy.png';
 
     this.update = function () {
@@ -54,9 +56,10 @@ Player.prototype.addY = function () {
 
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
-var enemy1 = new Enemy();
 var allEnemies = [];
-allEnemies.push(enemy1);
+while(allEnemies.length<5){
+    allEnemies.push(new Enemy());
+}
 
 // 把玩家对象放进一个叫 player 的变量里面
 var player = new Player();

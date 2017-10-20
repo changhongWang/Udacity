@@ -117,8 +117,23 @@ var Engine = (function(global) {
      */
     function renderEntities() {
         /* 遍历在 allEnemies 数组中存放的作于对象然后调用你事先定义的 render 函数 */
+        Array.prototype.remove = function(val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
         allEnemies.forEach(function(enemy) {
+            if(enemy.x>500){
+                enemy = null;
+                allEnemies.remove(enemy);
+                var newEnemy = new Enemy();
+                enemy.x = 0 - Math.random()*1000;
+                allEnemies.push(newEnemy);
+
+            }
             enemy.render();
+            console.log(allEnemies);
         });
 
         player.render();
