@@ -65,7 +65,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
@@ -77,6 +77,21 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+    }
+
+    /*
+     * 碰撞检测函数
+     */
+    function checkCollisions() {
+        // console.log(player);
+        allEnemies.forEach(function(enemy) {
+            if(enemy.x + enemy.width >= player.x && enemy.x + enemy.width <= player.width){
+                console.log(enemy.x)
+                console.log(enemy.width)
+                console.log(player.x)
+                console.log("你被撞到啦！die")
+            }
+        })
     }
 
     /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
@@ -125,15 +140,14 @@ var Engine = (function(global) {
         };
         allEnemies.forEach(function(enemy) {
             if(enemy.x>500){
-                enemy = null;
                 allEnemies.remove(enemy);
-                var newEnemy = new Enemy();
+                enemy = new Enemy();
                 enemy.x = 0 - Math.random()*1000;
-                allEnemies.push(newEnemy);
+                allEnemies.push(enemy);
 
             }
             enemy.render();
-            console.log(allEnemies);
+           // console.log(allEnemies);
         });
 
         player.render();
