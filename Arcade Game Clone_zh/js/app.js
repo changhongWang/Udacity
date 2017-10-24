@@ -1,28 +1,30 @@
 // 这是我们的玩家要躲避的敌人 
-var Enemy = function() {
+var Enemy = function(col, row, speed) {
     // 要应用到每个敌人的实例的变量写在这里
     // 已经提供了一个来帮助你实现更多
-    var arr_location_y = [60,145,225];
-    var arr_move_speed = [100, 200, 400];
-    this.x = 0;
-    this.y = arr_location_y[Math.floor(Math.random()*3)];
-    this.speed = arr_move_speed[Math.floor(Math.random()*3)];
-    this.width = 100;
+    this.x = col;
+    this.y = row;
+
+    this.originX = this.x;
+    this.originY = this.y;
+    this.speed = speed || 1;
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
 };
 
-// 此为游戏必须的函数，用来更新敌人的位置
+// 此为游戏必须的函数，用来  更新  敌人的位置
 // 参数: dt ，表示时间间隙
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
     this.x += this.speed*dt;
+    this.x>6 && (this.x = this.originX);
+    this.y>6 && (this.y = this.originY);
 };
 
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.x*100, (this.y*83)+55);
 };
 
 // 现在实现你自己的玩家类
@@ -60,9 +62,22 @@ Player.prototype.addY = function () {
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 var allEnemies = [];
-while(allEnemies.length<5){
-    allEnemies.push(new Enemy());
-}
+
+// 初始化5个敌人
+(function(){
+    /*for(var i=0;i<5;i++){
+        var _init_x = 1 - Math.ceil(Math.random()*5);
+        var _init_y = (Math.floor(Math.random()*3))*83+55;
+        var _init_speed = (1-_init_x)*100;
+        allEnemies.push( new Enemy(_init_x, _init_y, _init_speed) )
+    }*/
+    allEnemies.push(new Enemy(-5,0,4));
+    allEnemies.push(new Enemy(-3,1,1));
+    allEnemies.push(new Enemy(-1,2,2));
+    allEnemies.push(new Enemy(-2,0,3));
+    allEnemies.push(new Enemy(-4,2,1));
+})();
+
 
 // 把玩家对象放进一个叫 player 的变量里面
 var player = new Player();

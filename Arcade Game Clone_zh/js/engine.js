@@ -83,15 +83,26 @@ var Engine = (function(global) {
      * 碰撞检测函数
      */
     function checkCollisions() {
-        // console.log(player);
-        allEnemies.forEach(function(enemy) {
-            if(enemy.x + enemy.width >= player.x && enemy.x + enemy.width <= player.width){
-                console.log(enemy.x)
-                console.log(enemy.width)
-                console.log(player.x)
-                console.log("你被撞到啦！die")
+        var self = this;
+        /**
+         *  碰撞检测
+         *  由于敌人设置为横向移动，仅 X 值发生变化，并且玩家移动最小单位为一格
+         *  所以当敌人身体已经进入玩家所在区域 即视为身体重叠，发生碰撞
+         */
+        allEnemies.forEach(function(enemy){
+            /**
+             * 当检测到碰撞，重置玩家位置
+             * ps : 由于该玩家图片中玩家身体到图片边框有一定距离 估摸为0.25*图片宽度
+             *    为更加准确地捕捉敌人和玩家碰撞时间，使用该常量作为公式因子
+             */
+            if((enemy.x - self.x - 25) > -100 && (enemy.x - self.x - 25) < 100 && self.y ==  enemy.y){
+                self.reset();
             }
-        })
+        });
+        // 检测玩家过河成功
+        if(this.y === 1){
+            console.log("success");
+        }
     }
 
     /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
@@ -132,22 +143,8 @@ var Engine = (function(global) {
      */
     function renderEntities() {
         /* 遍历在 allEnemies 数组中存放的作于对象然后调用你事先定义的 render 函数 */
-        Array.prototype.remove = function(val) {
-            var index = this.indexOf(val);
-            if (index > -1) {
-                this.splice(index, 1);
-            }
-        };
         allEnemies.forEach(function(enemy) {
-            if(enemy.x>500){
-                allEnemies.remove(enemy);
-                enemy = new Enemy();
-                enemy.x = 0 - Math.random()*1000;
-                allEnemies.push(enemy);
-
-            }
             enemy.render();
-           // console.log(allEnemies);
         });
 
         player.render();
